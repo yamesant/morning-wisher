@@ -13,7 +13,11 @@ public class SendGoodMorningWishesEmail
         _emailCommunicationConfig = emailCommunicationOptions.Value;
     }
     [Function("SendGoodMorningWishesEmail")]
-    public async Task Run([TimerTrigger("0 0 22 * * *", RunOnStartup = true)] TimerInfo myTimer)
+    public async Task Run([TimerTrigger("0 0 22 * * *"
+        #if DEBUG
+        ,RunOnStartup = true
+        #endif
+        )] TimerInfo myTimer)
     {
         var emailClient = new EmailClient(_emailCommunicationConfig.ConnectionString);
         EmailSendOperation emailSendOperation = await emailClient.SendAsync(
