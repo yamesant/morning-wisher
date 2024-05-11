@@ -1,4 +1,4 @@
-This is a checkpoint branch. It corresponds to the blog post at: https://try-and-trash.ghost.io/sending-oneself-good-morning-emails-using-azure/
+This is a checkpoint branch. It corresponds to the blog post at: https://try-and-trash.com/sending-oneself-good-morning-emails-using-azure/
 
 This is an Azure Functions project.
 
