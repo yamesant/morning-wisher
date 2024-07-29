@@ -29,16 +29,11 @@ resource emailDomain 'Microsoft.Communication/emailServices/domains@2023-06-01-p
     domainManagement: 'AzureManaged'
     userEngagementTracking: 'Disabled'
   }
-}
-
-resource emailSender 'microsoft.communication/emailservices/domains/senderusernames@2023-06-01-preview' = {
-  name: '${emailServicesName}/azuremanageddomain/donotreply'
-  properties: {
-    username: 'DoNotReply'
-    displayName: 'DoNotReply'
+  resource emailSender 'senderusernames' = {
+    name: 'donotreply'
+    properties: {
+      username: 'DoNotReply'
+      displayName: 'DoNotReply'
+    }
   }
-  dependsOn: [
-    emailDomain
-    emailServices
-  ]
 }
