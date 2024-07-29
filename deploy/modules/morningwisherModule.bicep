@@ -2,7 +2,7 @@ var functionAppName = 'morningwisher-${uniqueString(resourceGroup().id)}'
 var storageAccountName = substring('morningwisher${uniqueString(resourceGroup().id)}', 0, 24)
 var appServicePlanName = 'morningwisher'
 
-resource functionApp 'Microsoft.Web/sites@2022-03-01' = {
+resource functionApp 'Microsoft.Web/sites@2023-12-01' = {
   name: functionAppName
   kind: 'functionapp,linux'
   location: resourceGroup().location
@@ -36,7 +36,7 @@ resource functionApp 'Microsoft.Web/sites@2022-03-01' = {
   }
 }
 
-resource scm 'Microsoft.Web/sites/basicPublishingCredentialsPolicies@2022-09-01' = {
+resource scm 'Microsoft.Web/sites/basicPublishingCredentialsPolicies@2023-12-01' = {
   parent: functionApp
   name: 'scm'
   properties: {
@@ -44,7 +44,7 @@ resource scm 'Microsoft.Web/sites/basicPublishingCredentialsPolicies@2022-09-01'
   }
 }
 
-resource ftp 'Microsoft.Web/sites/basicPublishingCredentialsPolicies@2022-09-01' = {
+resource ftp 'Microsoft.Web/sites/basicPublishingCredentialsPolicies@2023-12-01' = {
   parent: functionApp
   name: 'ftp'
   properties: {
@@ -52,7 +52,7 @@ resource ftp 'Microsoft.Web/sites/basicPublishingCredentialsPolicies@2022-09-01'
   }
 }
 
-resource appServicePlan 'Microsoft.Web/serverfarms@2018-11-01' = {
+resource appServicePlan 'Microsoft.Web/serverfarms@2023-12-01' = {
   name: appServicePlanName
   location: resourceGroup().location
   kind: 'functionapp'
@@ -65,7 +65,7 @@ resource appServicePlan 'Microsoft.Web/serverfarms@2018-11-01' = {
   }
 }
 
-resource storageAccount 'Microsoft.Storage/storageAccounts@2022-05-01' = {
+resource storageAccount 'Microsoft.Storage/storageAccounts@2023-05-01' = {
   name: storageAccountName
   location: resourceGroup().location
   kind: 'Storage'
