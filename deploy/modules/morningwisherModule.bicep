@@ -9,6 +9,18 @@ resource functionApp 'Microsoft.Web/sites@2023-12-01' = {
   properties: {
     siteConfig: {
       appSettings: [
+        // {
+        //   name: 'EmailCommunicationConfig__ConnectionString'
+        //   value: 
+        // }
+        // {
+        //   name: 'EmailCommunicationConfig__RecipientAddress'
+        //   value: 
+        // }
+        // {
+        //   name: 'EmailCommunicationConfig__SenderAddress'
+        //   value: 
+        // }
         {
           name: 'FUNCTIONS_EXTENSION_VERSION'
           value: '~4'
