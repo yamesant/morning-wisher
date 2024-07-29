@@ -23,4 +23,8 @@ resource morningwisherGroup 'Microsoft.Resources/resourceGroups@2024-03-01' = {
 module morningwisherModule 'modules/morningwisherModule.bicep' = {
   scope: morningwisherGroup
   name: morningwisherModuleName
+  params: {
+    communicationGroupName: communicationGroupName
+    communicationServicesName: communicationModule.outputs.communicationServicesName
+  }
 }

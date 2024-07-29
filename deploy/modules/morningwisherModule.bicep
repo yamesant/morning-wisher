@@ -1,6 +1,14 @@
+param communicationGroupName string
+param communicationServicesName string
+
 var functionAppName = 'morningwisher-${uniqueString(resourceGroup().id)}'
 var storageAccountName = substring('morningwisher${uniqueString(resourceGroup().id)}', 0, 24)
 var appServicePlanName = 'morningwisher'
+
+resource communicationServices 'Microsoft.Communication/CommunicationServices@2023-06-01-preview' existing = {
+  name: communicationServicesName
+  scope: resourceGroup(communicationGroupName)
+}
 
 resource functionApp 'Microsoft.Web/sites@2023-12-01' = {
   name: functionAppName
@@ -9,10 +17,10 @@ resource functionApp 'Microsoft.Web/sites@2023-12-01' = {
   properties: {
     siteConfig: {
       appSettings: [
-        // {
-        //   name: 'EmailCommunicationConfig__ConnectionString'
-        //   value: 
-        // }
+        {
+          name: 'EmailCommunicationConfig__ConnectionString'
+          value: communicationServices.listKeys().primaryConnectionString
+        }
         // {
         //   name: 'EmailCommunicationConfig__RecipientAddress'
         //   value: 
