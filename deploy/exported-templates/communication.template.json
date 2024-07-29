@@ -1,0 +1,67 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "emailServices_communication_services_email_2401_name": {
+            "defaultValue": "communication-services-email-2401",
+            "type": "String"
+        },
+        "CommunicationServices_communication_service_2401_name": {
+            "defaultValue": "communication-service-2401",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Communication/emailServices",
+            "apiVersion": "2023-06-01-preview",
+            "name": "[parameters('emailServices_communication_services_email_2401_name')]",
+            "location": "global",
+            "properties": {
+                "dataLocation": "Australia"
+            }
+        },
+        {
+            "type": "Microsoft.Communication/CommunicationServices",
+            "apiVersion": "2023-06-01-preview",
+            "name": "[parameters('CommunicationServices_communication_service_2401_name')]",
+            "location": "global",
+            "dependsOn": [
+                "[resourceId('Microsoft.Communication/emailServices/domains', parameters('emailServices_communication_services_email_2401_name'), 'AzureManagedDomain')]"
+            ],
+            "properties": {
+                "dataLocation": "Australia",
+                "linkedDomains": [
+                    "[resourceId('Microsoft.Communication/emailServices/domains', parameters('emailServices_communication_services_email_2401_name'), 'AzureManagedDomain')]"
+                ]
+            }
+        },
+        {
+            "type": "Microsoft.Communication/emailServices/domains",
+            "apiVersion": "2023-06-01-preview",
+            "name": "[concat(parameters('emailServices_communication_services_email_2401_name'), '/AzureManagedDomain')]",
+            "location": "global",
+            "dependsOn": [
+                "[resourceId('Microsoft.Communication/emailServices', parameters('emailServices_communication_services_email_2401_name'))]"
+            ],
+            "properties": {
+                "domainManagement": "AzureManaged",
+                "userEngagementTracking": "Disabled"
+            }
+        },
+        {
+            "type": "microsoft.communication/emailservices/domains/senderusernames",
+            "apiVersion": "2023-06-01-preview",
+            "name": "[concat(parameters('emailServices_communication_services_email_2401_name'), '/azuremanageddomain/donotreply')]",
+            "dependsOn": [
+                "[resourceId('microsoft.communication/emailservices/domains', parameters('emailServices_communication_services_email_2401_name'), 'azuremanageddomain')]",
+                "[resourceId('microsoft.communication/emailservices', parameters('emailServices_communication_services_email_2401_name'))]"
+            ],
+            "properties": {
+                "username": "DoNotReply",
+                "displayName": "DoNotReply"
+            }
+        }
+    ]
+}
