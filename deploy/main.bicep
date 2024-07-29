@@ -1,5 +1,7 @@
 targetScope = 'subscription'
 
+param recipientAddress string
+
 var communicationModuleName = 'communication'
 var morningwisherModuleName = 'morningwisher'
 var communicationGroupName = 'rg-${communicationModuleName}'
@@ -26,6 +28,7 @@ module morningwisherModule 'modules/morningwisherModule.bicep' = {
   params: {
     communicationGroupName: communicationGroupName
     communicationServicesName: communicationModule.outputs.communicationServicesName
+    recipientAddress: recipientAddress
     senderAddress: communicationModule.outputs.senderAddress
   }
 }

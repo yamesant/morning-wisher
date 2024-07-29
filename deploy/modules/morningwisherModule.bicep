@@ -1,5 +1,6 @@
 param communicationGroupName string
 param communicationServicesName string
+param recipientAddress string
 param senderAddress string
 
 var functionAppName = 'morningwisher-${uniqueString(resourceGroup().id)}'
@@ -22,10 +23,10 @@ resource functionApp 'Microsoft.Web/sites@2023-12-01' = {
           name: 'EmailCommunicationConfig__ConnectionString'
           value: communicationServices.listKeys().primaryConnectionString
         }
-        // {
-        //   name: 'EmailCommunicationConfig__RecipientAddress'
-        //   value: 
-        // }
+        {
+          name: 'EmailCommunicationConfig__RecipientAddress'
+          value: recipientAddress
+        }
         {
           name: 'EmailCommunicationConfig__SenderAddress'
           value: senderAddress
