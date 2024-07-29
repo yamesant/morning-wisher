@@ -1,5 +1,6 @@
-var emailServicesName = 'communication-services-email-2401'
-var communicationServicesName = 'communication-service-2401'
+var emailServicesName = 'email-services-${uniqueString(resourceGroup().id)}'
+var communicationServicesName = 'communication-services-${uniqueString(resourceGroup().id)}'
+var emailDomainName = 'AzureManagedDomain'
 
 resource emailServices 'Microsoft.Communication/emailServices@2023-06-01-preview' = {
   name: emailServicesName
@@ -22,7 +23,7 @@ resource communicationServices 'Microsoft.Communication/CommunicationServices@20
 
 resource emailDomain 'Microsoft.Communication/emailServices/domains@2023-06-01-preview' = {
   parent: emailServices
-  name: 'AzureManagedDomain'
+  name: emailDomainName
   location: 'global'
   properties: {
     domainManagement: 'AzureManaged'
