@@ -26,5 +26,6 @@ module morningwisherModule 'modules/morningwisherModule.bicep' = {
   params: {
     communicationGroupName: communicationGroupName
     communicationServicesName: communicationModule.outputs.communicationServicesName
+    senderAddress: communicationModule.outputs.senderAddress
   }
 }

@@ -39,3 +39,4 @@ resource emailDomain 'Microsoft.Communication/emailServices/domains@2023-06-01-p
 }
 
 output communicationServicesName string = communicationServices.name
+output senderAddress string = '${emailDomain::emailSender.properties.username}@${emailDomain.properties.mailFromSenderDomain}'

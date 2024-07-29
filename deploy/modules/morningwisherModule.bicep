@@ -1,5 +1,6 @@
 param communicationGroupName string
 param communicationServicesName string
+param senderAddress string
 
 var functionAppName = 'morningwisher-${uniqueString(resourceGroup().id)}'
 var storageAccountName = substring('morningwisher${uniqueString(resourceGroup().id)}', 0, 24)
@@ -25,10 +26,10 @@ resource functionApp 'Microsoft.Web/sites@2023-12-01' = {
         //   name: 'EmailCommunicationConfig__RecipientAddress'
         //   value: 
         // }
-        // {
-        //   name: 'EmailCommunicationConfig__SenderAddress'
-        //   value: 
-        // }
+        {
+          name: 'EmailCommunicationConfig__SenderAddress'
+          value: senderAddress
+        }
         {
           name: 'FUNCTIONS_EXTENSION_VERSION'
           value: '~4'
